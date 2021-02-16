@@ -7,10 +7,19 @@
 #' @param method Which type of regression to run, currently only \code{"linear"} (cor linear regression) and \code{"logit"} (for logistic regression on binary dependent variables) are allowed. Default is \code{"linear"}.
 #' @param min_n Minimum number of observations allowed in order to fit the regression. Default it \code{20}.
 #' @param min_ng Minimum number of observations within each level of factor variables. Default it \code{5}.
+#' @param focal_var Variable for which estimate and standard errors should be returned. Only 3 options: "(Intercept)" for the level-1 intercept, "(all)" for the entire set of estimates and standard errors (this is the default behavior), or "var_name", where this represents the name of the level-1 variable for which we want to use the estimate as a DV in the second-stage equation.
 #' @return A data frame with the coefficients, standard errors, number of observations and adjusted RSquare (for linear models only) for each group.
 
 
-l1_reg <- function(formula, data, group, x_fact = NULL, method = "linear", min_n = 20, min_ng = 5) {
+
+l1_reg <- function(formula, 
+                   data, 
+                   group, 
+                   x_fact = NULL, 
+                   method = "linear",
+                   focal_var = "(all)",
+                   min_n = 20, 
+                   min_ng = 5) {
   
   if(length(x_fact) == 0) {
     
@@ -18,7 +27,8 @@ l1_reg <- function(formula, data, group, x_fact = NULL, method = "linear", min_n
       split(data, f = data[, group], drop = T),
       function(x) reg_extr(formula, data = x, group = group, 
                            min_n = min_n, min_ng = min_ng, 
-                           method = "linear"))
+                           method = "linear", 
+                           focal_var = "(all)"))
     
   } else {
     
@@ -26,7 +36,8 @@ l1_reg <- function(formula, data, group, x_fact = NULL, method = "linear", min_n
       split(data, f = data[, group], drop = T),
       function(x) reg_extr(formula, data = x, group = group, 
                            min_n = min_n, min_ng = min_ng, 
-                           method = "linear", x_fact = x_fact))
+                           method = "linear", x_fact = x_fact,
+                           focal_var = "(all)"))
     
   }
   
