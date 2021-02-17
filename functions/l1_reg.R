@@ -1,5 +1,6 @@
-# l1_reg() Applies reg_extr by group and returns a data frame with coefficients, standard errors, number of observations and fit statistics (for linear models only) for each group.
+# l1_reg() 
 
+#' Applies reg_extr by group and returns a data frame with coefficients, standard errors, number of observations and fit statistics (for linear models only) for each group.
 #' @param formula The formula of the regression model, written as \code{y ~ x_1 + x_2 + x_n}
 #' @param data A data frame containing all the variables and the observations in all levels
 #' @param group The name of the variable identifying the groups.

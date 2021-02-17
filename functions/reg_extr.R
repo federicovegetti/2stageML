@@ -1,5 +1,6 @@
-# reg_extr() Extracts coefficients from regression models and returns a single row data frame
+# reg_extr() 
 
+#' Extracts coefficients from regression models and returns a single row data frame
 #' @param formula The formula of the regression model, written as \code{y ~ x_1 + x_2 + x_n}
 #' @param data A data frame containing all the variables and the observations in all levels
 #' @param x_fact Indicates which independent variables are to be treated as factor variables. Default is \code{NULL}.
