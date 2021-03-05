@@ -70,18 +70,18 @@ reg_extr <- function(formula,
     mod <- glm(formula, data = df,
                family = binomial(link = "logit"))
   }
-
+  
   cf <- summary(mod)$coefficients
   # Set subsetting procedure here with nested "ifelse()" call
   retRange <- NA
-  if (focal_var=="(all)") {
-    retRange <- 1:(length(ivs)+1)
+  if ("(all)" %in% focal_var) {
+    retRange <- 1:nrow(cf)
   } else {
-    retRange <- ifelse(focal_var=="(Intercept)",
-                       1,
-                       ifelse(focal_var %in% ivs,
-                              which(rownames(cf)==focal_var),
-                              stop("Argument focal_var accepts only 3 possible values. Please check the spelling of your variable name.")))
+    retRange <- if (sum(tolower(gsub("[()]", "", focal_var)) %in% c("intercept", ivs)) == length(focal_var)) {
+      which(tolower(gsub("[()]", "", rownames(cf))) %in% tolower(gsub("[()]", "", focal_var)))
+    } else {
+      stop("Argument focal_var accepts only 3 possible values. Please check the spelling of your variable name.")
+    }
   }
 
   if(length(ivs) == 0) {

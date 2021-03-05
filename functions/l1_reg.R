@@ -28,8 +28,8 @@ l1_reg <- function(formula,
       split(data, f = data[, group], drop = T),
       function(x) reg_extr(formula, data = x, group = group, 
                            min_n = min_n, min_ng = min_ng, 
-                           method = "linear", 
-                           focal_var = "(all)"))
+                           method = method, 
+                           focal_var = focal_var))
     
   } else {
     
@@ -37,8 +37,8 @@ l1_reg <- function(formula,
       split(data, f = data[, group], drop = T),
       function(x) reg_extr(formula, data = x, group = group, 
                            min_n = min_n, min_ng = min_ng, 
-                           method = "linear", x_fact = x_fact,
-                           focal_var = "(all)"))
+                           method = method, x_fact = x_fact,
+                           focal_var = focal_var))
     
   }
   
